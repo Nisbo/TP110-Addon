@@ -9,6 +9,9 @@ the "TPLink HS100/HS110 WiFi Smart Plug API" by RobertShippey (GNU General Publi
 and the information from the Reverse Engineering the TP-Link HS110 by Lubomir Stroetmann, Consultant and Tobias Esser, Consultant
 - https://www.softscheck.com/en/reverse-engineering-tp-link-hs110/
 
+The Script is reading the Voltage, Current, Power and the status of the Switch
+Later I will implement also an option to toggle the switch from IPS.
+
 # Installation (German)
 ### Im Objektbaum an gewünschter Stelle eine neue Kategorie hinzufügen (optional, alternativ eine vorhandene Kategorie verwenden)
 
