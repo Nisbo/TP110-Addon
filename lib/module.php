@@ -19,6 +19,12 @@
 
 // Config
 $host  = "192.168.178.77";	// The adress of the HS110 device
+
+$varV  = 57949;				// ObjektID for Volatage --> Type: Float
+$varA  = 22493;				// ObjektID for Current  --> Type: Float
+$varP  = 22956;				// ObjektID for Power    --> Type: Float
+$varS  = 12405;				// ObjektID for Switch   --> Type: Boolean
+
 $debug = false;				// true = debugging is enabled / false = debugging is disabled
 
 
@@ -133,7 +139,7 @@ if($debug) {
 	$result->system->get_sysinfo->model . " - ". $result->system->get_sysinfo->alias . " - " . $result->system->get_sysinfo->relay_state . " (1 = on / 0 = 0ff) - Values: ";
 }
 
-SetValueBoolean(12405 /*[Test\testVar4]*/,(bool) $result->system->get_sysinfo->relay_state);
+SetValueBoolean($varS, (bool) $result->system->get_sysinfo->relay_state);
 socket_close($sock);
 
 
@@ -152,9 +158,9 @@ if($debug) {
 	echo $result->emeter->get_realtime->voltage . "V / " . $result->emeter->get_realtime->current . "A / " . $result->emeter->get_realtime->power . "W";
 }
 
-SetValueFloat(57949 /*[Test\testVar1]*/,$result->emeter->get_realtime->voltage);
-SetValueFloat(22493 /*[Test\testVar2]*/,$result->emeter->get_realtime->current);
-SetValueFloat(22956 /*[Test\testVar3]*/,$result->emeter->get_realtime->power);
+SetValueFloat($varV, $result->emeter->get_realtime->voltage);
+SetValueFloat($varA, $result->emeter->get_realtime->current);
+SetValueFloat($varP, $result->emeter->get_realtime->power);
 
 socket_close($sock);
 
