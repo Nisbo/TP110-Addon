@@ -3,7 +3,7 @@
 ########################################################################################################
 #
 # Name:    TP110-Addon
-# Version: 0.1 (26.08.2017)
+# Version: 0.2 (23.07.2018)
 # Autor:   Jens Gericke (IPS Foren AccountName: Nisbo
 # License: GNU General Public License v3.0
 #
@@ -18,12 +18,12 @@
 ########################################################################################################
 
 // Config
-$host  = "192.168.178.77";	// The adress of the HS110 device
+$host  = "192.168.178.80";	// The adress of the HS110 device
 
-$varV  = 57949;				// ObjektID for Volatage --> Type: Float
-$varA  = 22493;				// ObjektID for Current  --> Type: Float
-$varP  = 22956;				// ObjektID for Power    --> Type: Float
-$varS  = 12405;				// ObjektID for Switch   --> Type: Boolean
+$varV  = 58183 /*[Terrarien\Weißes Terrarium\2testVar1]*/;				// ObjektID for Volatage --> Type: Float
+$varA  = 21841 /*[Terrarien\Weißes Terrarium\2testVar2]*/;				// ObjektID for Current  --> Type: Float
+$varP  = 50359 /*[Terrarien\Weißes Terrarium\2testVar3]*/;				// ObjektID for Power    --> Type: Float
+$varS  = 50314 /*[Terrarien\Weißes Terrarium\2testVar4]*/;				// ObjektID for Switch   --> Type: Boolean
 
 $debug = false;				// true = debugging is enabled / false = debugging is disabled
 
@@ -121,6 +121,20 @@ function getResultFromSocket($sock){
 	}
 
 	return $buf;
+}
+
+
+#########################################################################################################################################
+## Switch
+## Command to Send for ON:  {"system":{"set_relay_state":{"state":1}}}
+## Command to Send for Off: {"system":{"set_relay_state":{"state":0}}}
+if ($_IPS['SENDER'] == "WebFront"){
+	$status = ($_IPS['VALUE'] == 1) ? 1 : 0; // 1 = On // empty = Off
+	
+	$sock   = connectToSocket();
+          	  sendToSocket('{"system":{"set_relay_state":{"state":'.$status.'}}}', $sock);
+	$buf    = getResultFromSocket($sock);
+	$result = json_decode(decrypt($buf));
 }
 
 
